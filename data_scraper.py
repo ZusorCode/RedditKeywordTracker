@@ -25,7 +25,7 @@ def update_data():
     subreddit = reddit.subreddit('all')
     titles = [post.title for post in subreddit.hot(limit=config_data.limit)]
     db.set(f"titles_{int(time.time())}", pickle.dumps(titles))
-    db.set("enabled", 1, ex=config_data.delay2)
+    db.set("enabled", 1, ex=config_data.delay)
 
 
 while True:
