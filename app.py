@@ -13,7 +13,7 @@ db = redis.Redis(host=config_data.redis_host, port=6379, db=0)
 def get_titles():
     if db.get("enabled"):
         keys = sorted(db.keys())
-        key_name = keys[0]
+        key_name = keys[len(keys)-1]
         return pickle.loads(db.get(key_name))
 
 
