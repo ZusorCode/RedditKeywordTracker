@@ -8,5 +8,5 @@ class Config:
             self.client_id = self.data["client_id"]
             self.client_secret = self.data["client_secret"]
             self.redis_host = self.data["redis_host"]
-            self.limit = self.data["delay"]
-            self.delay = self.data["limit"]
+            self.limit = self.data["limit"]
+            self.delay = self.data["delay"]

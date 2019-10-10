@@ -3,6 +3,7 @@ import pickle
 import redis
 import config
 import time
+import logging
 
 delay = 30
 
@@ -24,12 +25,13 @@ def update_data():
 
     subreddit = reddit.subreddit('all')
     titles = [post.title for post in subreddit.hot(limit=config_data.limit)]
+    logging.warning(f"Got {len(titles)} titles")
     db.set(f"titles_{int(time.time())}", pickle.dumps(titles))
     db.set("enabled", 1, ex=config_data.delay)
 
 
 while True:
-    print("Updating data")
+    logging.warning("Updating data!")
     update_data()
-    print("Done")
+    logging.warning("Done!")
     time.sleep(config_data.delay)

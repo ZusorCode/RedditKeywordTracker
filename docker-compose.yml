@@ -4,11 +4,15 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.scraper
+    depends_on:
+      - "redis"
   server:
     build: 
       context: .
       dockerfile: Dockerfile.server
     ports:
       - "6300:5000"
+    depends_on:
+      - "redis"
   redis:
     image: redis:5
