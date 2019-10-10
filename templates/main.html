@@ -6,6 +6,29 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <!-- Matomo -->
+    <script type="text/javascript">
+        var _paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = "//insights.zusor.org/";
+            _paq.push(['setTrackerUrl', u + 'matomo.php']);
+            _paq.push(['setSiteId', '2']);
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript';
+            g.async = true;
+            g.defer = true;
+            g.src = u + 'matomo.js';
+            s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+
+
 </head>
 
 <body>
@@ -16,6 +39,8 @@
                data-on-tag-remove="update()" data-on-tag-input-create="enable()">
 
     </div>
+    <p>Built by <a href="https://github.com/ZusorCode">Zusor</a>, available on <a href="https://github.com/ZusorCode/RedditKeywordTracker">GitHub</a>, inspired by a
+        <a href="https://www.reddit.com/r/dataisbeautiful/comments/dfmgst/oc_a_quick_look_at_todays_reddit_storm/">post on r/DataIsBeautiful</a></p>
 </div>
 <script>
     let enabled = false;
@@ -65,7 +90,7 @@
         if (enabled !== true) {
             return;
         }
-        let keywords= $("#keywords").data("taginput").tags();
+        let keywords = $("#keywords").data("taginput").tags();
         let post_data = [];
         let counter = 0;
         keywords.forEach(function (keyword) {
