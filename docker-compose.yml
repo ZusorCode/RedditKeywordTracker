@@ -9,6 +9,6 @@ services:
       context: .
       dockerfile: Dockerfile.server
     ports:
-      - "6600:5000"
+      - "6300:5000"
   redis:
     image: redis:5
