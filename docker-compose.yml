@@ -1,0 +1,14 @@
+version: "3"
+services:
+  scraper:
+    build: 
+      context: .
+      dockerfile: Dockerfile.scraper
+  server:
+    build: 
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "6600:5000"
+  redis:
+    image: redis:5

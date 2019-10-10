@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reddit Visualizer</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div id="chart"></div>
+    <div class="row">
+        <input type="text" data-role="taginput" id="keywords" data-on-tag-add="update()"
+               data-on-tag-remove="update()" data-on-tag-input-create="enable()">
+
+    </div>
+</div>
+<script>
+    let enabled = false;
+
+    var options = {
+        chart: {
+            height: 350,
+            type: 'bar',
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                distributed: true
+            },
+        },
+        dataLabels: {
+            enabled: true
+        },
+
+        series: [{
+            name: 'Keywords',
+            data: [0]
+        }],
+        xaxis: {
+            categories: ['Example'],
+        },
+
+        fill: {
+            opacity: 1
+
+        }
+    };
+
+    var chart = new ApexCharts(
+        document.querySelector("#chart"),
+        options
+    );
+
+    chart.render();
+
+    function enable() {
+        enabled = true;
+    }
+
+    async function update() {
+        if (enabled !== true) {
+            return;
+        }
+        let keywords= $("#keywords").data("taginput").tags();
+        let post_data = [];
+        let counter = 0;
+        keywords.forEach(function (keyword) {
+            $.getJSON("/api/" + keyword, function (data) {
+                post_data.push(data["count"])
+            }).done(function () {
+                counter++;
+                if (counter === keywords.length) {
+                    chart.updateOptions({
+                        xaxis: {
+                            categories: keywords
+                        }
+                    });
+
+                    chart.updateSeries([{
+                        data: post_data
+                    }], true);
+                }
+            })
+        });
+    }
+</script>
+<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+</body>
+</html>

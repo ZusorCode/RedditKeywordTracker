@@ -1,0 +1,7 @@
+FROM python:3
+RUN pip3 install redis praw
+WORKDIR /scraper
+COPY data_scraper.py /scraper
+COPY config.py /scraper
+COPY config.json /scraper
+ENTRYPOINT ["python3", "data_scraper.py"]

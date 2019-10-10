@@ -1,0 +1,8 @@
+FROM python:3
+WORKDIR /app
+COPY app.py /app
+COPY config.py /app
+COPY config.json /app
+RUN pip3 install gunicorn redis flask
+EXPOSE 6600
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
